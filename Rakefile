@@ -1,0 +1,31 @@
+require 'rake'
+require 'rake/testtask'
+require 'test/helper'
+
+Rake::TestTask.new(:test_with_active_record) do |t|
+  t.libs << SlimScrooge::ActiveRecordTest::AR_TEST_SUITE
+  t.libs << SlimScrooge::ActiveRecordTest.connection
+  t.test_files = SlimScrooge::ActiveRecordTest.test_files
+  t.ruby_opts = ["-r #{File.join(File.dirname(__FILE__), 'test', 'active_record_setup')}"]
+  t.verbose = true
+end
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "slim_scrooge"
+    s.summary = "Slim_scrooge - lazy instantiation of attributes and query optimisation for ActiveRecord"
+    s.email = "sdsykes@gmail.com"
+    s.homepage = "http://github.com/sdsykes/slim_scrooge"
+    s.description = "Slim scrooge boosts speed in Rails/Mysql ActiveRecord Models by lazily instantiating attributes as needed, and only querying the database for what is needed."
+    s.authors = ["Stephen Sykes"]
+    s.files = FileList["[A-Z]*", "{ext,lib,test}/**/*"]
+    s.extensions = "ext/extconf.rb"
+#    s.add_dependency('sdsykes-slim-attributes', '>= 0.7.0')
+    s.add_dependency('slim-attributes', '>= 0.7.0')
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://
+gems.github.com"
+end

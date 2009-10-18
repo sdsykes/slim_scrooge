@@ -1,0 +1,27 @@
+h1. SlimScrooge - serious optimisation of mysql for activerecord
+
+h2. What is it?
+
+SlimScrooge implements both lazy loading of attributes fetched from mysql, as well as inline query optimisation to ensure that only what you need is fetched from the database.
+
+h2. Benchmarks
+
+It performs much better than plain activerecord, and a bit better than activerecord with slim-attributes.
+
+Todo: nice graph
+
+h2. Installation
+
+Todo.
+
+h2. Tests
+
+SlimScrooge performs the full activerecord test suite without errors, except for tests that check the number of queries performed.
+
+h2. References
+* "Scrooge":http://github.com/methodmissing/scrooge
+* "Slim-attributes":http://github.com/sdsykes/slim-attributes
+
+h2. Authors
+* Stephen Sykes (sdsykes)
+* Special credit to Lourens Naudé (methodmissing) for the original idea, and the C implementation of callsite_hash as well as some other small bits of code that I borrowed from the original project.
