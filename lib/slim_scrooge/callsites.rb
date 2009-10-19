@@ -6,28 +6,26 @@ module SlimScrooge
     @@callsites = {}
 
     class << self
+      def has_key?(callsite_key)
+        @@callsites.has_key?(callsite_key)
+      end
+
       def [](callsite_key)
         @@callsites[callsite_key]
       end
 
       def callsite_key(callsite_hash, sql)
-        callsite_hash + sql.hash
+        callsite_hash + sql.gsub(/WHERE.*/i, "").hash
       end
 
-      def find_or_create(sql, callsite_key, name)
-        if @@callsites.has_key? callsite_key
-          @@callsites[callsite_key]
+      def create(sql, callsite_key, name)
+        begin
+          model_class = name.split.first.constantize
+        rescue NameError, NoMethodError
+          add_callsite(callsite_key, nil)
         else
-          if name
-            class_name = name.split.first
-            model_class = class_name.constantize
-            add_callsite(callsite_key, Callsite.make_callsite(model_class, sql))
-          else
-            add_callsite(callsite_key, nil)
-          end
+          add_callsite(callsite_key, Callsite.make_callsite(model_class, sql))
         end
-      rescue NameError # from constantize
-        add_callsite(callsite_key, nil)
       end
 
       def add_callsite(callsite_key, callsite)

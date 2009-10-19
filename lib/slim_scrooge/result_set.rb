@@ -22,28 +22,10 @@ module SlimScrooge
       new_rows = model_class.connection.send(:select, sql, "#{model_class.name} Reload SlimScrooged")
       new_rows.each do |row|
         if old_row = rows_hash[row[callsite.primary_key]]
-          old_row.slim_result_set = nil
-          row.each do |col, value|
-            old_row[col] = value
-          end
-          old_row.instance_variable_set(:@real_hash, MonitoredHash[old_row.to_hash, callsite])
+          old_row.real_hash.result_set = nil
+          row.each {|col, value| old_row[col] = value}
         end
       end
-    end
-  end
-
-  class MonitoredHash < Hash
-    attr_accessor :callsite
-    
-    def self.[](original_hash, callsite)
-      hash = super(original_hash)
-      hash.callsite = callsite
-      hash
-    end
-    
-    def [](name)
-      Callsites.add_seen_column(callsite, name) if @callsite.columns_hash.has_key?(name)
-      super
     end
   end
 end
