@@ -26,7 +26,7 @@ h3. Requirements
 
 * "Slim-attributes":http://github.com/sdsykes/slim-attributes
 
-h3. What it does
+h2. What it does
 
 <pre>
   # 1st request, sql is unchanged but columns accesses are recorded
@@ -46,7 +46,7 @@ h3. What it does
   `brochures`.id FROM `brochures` WHERE (expires_at IS NULL)
 </pre>
 
-h3. Technical discussion
+h2. Technical discussion
 
 SlimScrooge hooks in at just one particular place in the mysql adapter - and that place is the select_all method.  All select queries pass through this method.
 
@@ -60,7 +60,7 @@ Clearly slim-attributes knows when each column is accessed, and this information
 
 In fact for efficiency, column accesses are only recorded when they are for newly accessed columns.  Columns we already know about are accessed completely normally, and slim-attributes provides its usual lazy-loading benefit without any additional overhead.
 
-h3. Caveats
+h2. Caveats
 
 It is possible to delete an object and then to try to use its attributes to access another object that perhaps must be also deleted (like the option :dependent=>:destroy in Rails associations).
 
