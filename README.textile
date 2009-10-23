@@ -6,11 +6,13 @@ It's an optimization layer to ensure your application only fetches the database 
 
 SlimScrooge implements both lazy loading of attributes fetched from mysql, as well as inline query optimisation, automatically restricting the columns fetched based on what was used during previous passes through the same part of your code.
 
+SlimScrooge is similar to (and is partly derived from) "Scrooge":http://github.com/methodmissing/scrooge but has many fewer lines of code and is faster. Note also that SlimScrooge only works with Mysql, whereas Scrooge works with any DB.
+
 h2. Benchmark
 
 SlimScrooge performs best when the database is not on the same machine as your rails app.  In this case the overhead of fetching unnecessary data from the database can become more important.
 
-I ran a benchmark that consisted of fetching 400 real urls (culled from the log file) from our complex web app.  In this test I found a consistent 12% improvement in performance over plain active record.  Not earth-shattering, but worthwhile.  In future releases I expect further gains.
+I ran a benchmark that consisted of fetching 400 real urls (culled from the log file) from our complex web app.  In this test I found a consistent *12% improvement* in performance over plain active record.  Not earth-shattering, but worthwhile.  In future releases I expect further gains.
 
 h2. Installation
 
