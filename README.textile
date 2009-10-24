@@ -24,6 +24,12 @@ h2. Installation
   sudo gem install slim_scrooge
 </pre>
 
+Then add this to your Rails::Initializer section in environment.rb:
+
+<pre>
+  config.gem 'slim_scrooge'
+</pre>
+
 h3. Requirements
 
 * "Slim-attributes":http://github.com/sdsykes/slim-attributes
