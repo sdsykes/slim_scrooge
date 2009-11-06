@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Stephen Sykes"]
   s.date = %q{2009-11-06}
-  s.description = %q{Slim scrooge boosts speed in Rails/Mysql ActiveRecord Models by lazily instantiating attributes as needed, and only querying the database for what is needed.}
+  s.description = %q{Slim scrooge boosts speed in Rails ActiveRecord Models by only querying the database for what is needed.}
   s.email = %q{sdsykes@gmail.com}
   s.extensions = ["ext/extconf.rb"]
   s.extra_rdoc_files = [
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Slim_scrooge - lazy instantiation of attributes and query optimisation for ActiveRecord}
+  s.summary = %q{Slim_scrooge - serious optimisation for ActiveRecord}
   s.test_files = [
     "test/active_record_setup.rb",
      "test/helper.rb",
