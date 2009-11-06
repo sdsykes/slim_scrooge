@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{slim_scrooge}
-  s.version = "0.1.1"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Stephen Sykes"]
-  s.date = %q{2009-10-23}
+  s.date = %q{2009-11-06}
   s.description = %q{Slim scrooge boosts speed in Rails/Mysql ActiveRecord Models by lazily instantiating attributes as needed, and only querying the database for what is needed.}
   s.email = %q{sdsykes@gmail.com}
   s.extensions = ["ext/extconf.rb"]
