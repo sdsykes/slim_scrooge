@@ -4,7 +4,7 @@ h2. What is it?
 
 It's an optimization layer to ensure your application only fetches the database content needed to minimize wire traffic, excessive SQL queries and reduce conversion overheads to native Ruby types.
 
-SlimScrooge implements both lazy loading of attributes fetched from mysql, as well as inline query optimisation, automatically restricting the columns fetched based on what was used during previous passes through the same part of your code.
+SlimScrooge implements inline query optimisation, automatically restricting the columns fetched based on what was used during previous passes through the same part of your code.
 
 SlimScrooge is similar to (and is partly derived from) "Scrooge":http://github.com/methodmissing/scrooge but has many fewer lines of code and is faster.
 
