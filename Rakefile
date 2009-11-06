@@ -14,10 +14,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "slim_scrooge"
-    s.summary = "Slim_scrooge - lazy instantiation of attributes and query optimisation for ActiveRecord"
+    s.summary = "Slim_scrooge - serious optimisation for ActiveRecord"
     s.email = "sdsykes@gmail.com"
     s.homepage = "http://github.com/sdsykes/slim_scrooge"
-    s.description = "Slim scrooge boosts speed in Rails/Mysql ActiveRecord Models by lazily instantiating attributes as needed, and only querying the database for what is needed."
+    s.description = "Slim scrooge boosts speed in Rails ActiveRecord Models by only querying the database for what is needed."
     s.authors = ["Stephen Sykes"]
     s.files = FileList["[A-Z]*", "{ext,lib,test}/**/*"]
     s.extensions = "ext/extconf.rb"
