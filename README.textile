@@ -1,4 +1,4 @@
-h1. SlimScrooge - serious optimisation of mysql for activerecord
+h1. SlimScrooge - serious optimisation for activerecord
 
 h2. What is it?
 
