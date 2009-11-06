@@ -54,7 +54,7 @@ h2. Technical discussion
 
 SlimScrooge hooks in at just one particular place in ActiveRecord - and that place is the find_all_by_sql method.  All select queries pass through this method.
 
-SlimScrooge is able to record each call (and where it came from in your code), and to modify queries that do SELECT * FROM en-route to mysql so that they only select the rows that are actually used by that piece of code.
+SlimScrooge is able to record each call (and where it came from in your code), and to modify queries that do SELECT * FROM en-route to the database so that they only select the rows that are actually used by that piece of code.
 
 How does SlimScrooge know which columns are actually used?
 
