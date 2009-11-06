@@ -1,7 +1,6 @@
 # Author: Stephen Sykes
 
 require 'callsite_hash'
-require 'slim_attributes'
 require 'slim_scrooge/simple_set'
 require 'slim_scrooge/callsites'
 require 'slim_scrooge/callsite'

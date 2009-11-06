@@ -22,8 +22,8 @@ module SlimScrooge
       new_rows = model_class.connection.send(:select, sql, "#{model_class.name} Reload SlimScrooged")
       new_rows.each do |row|
         if old_row = rows_hash[row[callsite.primary_key]]
-          old_row.real_hash.result_set = nil
-          row.each {|col, value| old_row[col] = value}
+          old_row.result_set = nil
+          old_row.monitored_columns.merge!(row)
         end
       end
     end

@@ -62,7 +62,9 @@ module SlimScrooge
     end
 
     def scrooge_select_sql(set)
-      set.collect{|name| "#{@quoted_table_name}.#{name}"}.join(ScroogeComma)
+      set.collect do |name|
+        "#{@quoted_table_name}.#{@model_class.connection.quote_column_name(name)}"
+      end.join(ScroogeComma)
     end
   end
 end
