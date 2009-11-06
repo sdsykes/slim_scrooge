@@ -12,7 +12,11 @@ h2. Benchmark
 
 SlimScrooge performs best when the database is not on the same machine as your rails app.  In this case the overhead of fetching unnecessary data from the database can become more important.
 
-I ran a benchmark that consisted of fetching 400 real urls (culled from the log file) from our complex web app.  In this test I found a consistent *12% improvement* in performance over plain active record.  Not earth-shattering, but worthwhile.  In future releases I expect further gains.
+I ran a benchmark that consisted of fetching 400 real urls (culled from the log file) from our complex web app.  In this test I found a consistent *12% improvement* in performance over plain active record.  Not earth-shattering, but worthwhile.
+
+Note that this result was for comparing the time taken for running complete requests through rails - of which database accesses are only one part.  So the result is better than it at first sounds.
+
+In future releases I expect further gains.
 
 h2. Installation
 
