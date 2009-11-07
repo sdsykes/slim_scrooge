@@ -21,7 +21,6 @@ begin
     s.authors = ["Stephen Sykes"]
     s.files = FileList["[A-Z]*", "{ext,lib,test}/**/*"]
     s.extensions = "ext/extconf.rb"
-    s.add_dependency('slim-attributes', '>= 0.7.0')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

@@ -87,7 +87,7 @@ end
 # to_hash, because otherwise update will not get the complete columns
 # from a MonitoredHash
 #
-# # This is not harmful - to_hash in a regular Hash just returns self.
+# This is not harmful - to_hash in a regular Hash just returns self.
 #
 class Hash
   alias_method :c_update, :update
