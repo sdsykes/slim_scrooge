@@ -43,6 +43,7 @@ module SlimScrooge
       @model_class = model_class
       @quoted_table_name = model_class.quoted_table_name
       @primary_key = model_class.primary_key
+      @quoted_primary_key = model_class.connection.quote_column_name(@primary_key)
       @columns_hash = model_class.columns_hash
       @select_regexp = self.class.select_regexp(model_class.table_name)
       @seen_columns = SimpleSet.new(essential_columns)
@@ -51,7 +52,7 @@ module SlimScrooge
     # List of columns that should always be fetched no matter what
     #
     def essential_columns
-      @model_class.reflect_on_all_associations.inject([@model_class.primary_key]) do |arr, assoc|
+      @model_class.reflect_on_all_associations.inject([@primary_key]) do |arr, assoc|
         if assoc.options[:dependent] && assoc.macro == :belongs_to
           arr << assoc.association_foreign_key
         end
@@ -77,7 +78,7 @@ module SlimScrooge
     def reload_sql(primary_keys, fetched_columns)
       sql_keys = primary_keys.collect{|pk| "'#{pk}'"}.join(ScroogeComma)
       cols = scrooge_select_sql(missing_columns(fetched_columns))
-      "SELECT #{cols} FROM #{@quoted_table_name} WHERE #{@quoted_table_name}.#{@primary_key} IN (#{sql_keys})"
+      "SELECT #{cols} FROM #{@quoted_table_name} WHERE #{@quoted_primary_key} IN (#{sql_keys})"
     end
 
     # Change a set of columns into a correctly quoted comma separated list
