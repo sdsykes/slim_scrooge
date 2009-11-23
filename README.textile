@@ -20,6 +20,8 @@ In future releases I expect further gains.
 
 h2. Installation
 
+Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.  (Ruby 1.9 to be tested)
+
 <pre>
   # if you haven't already, add gemcutter to your gem sources
   sudo gem install gemcutter
@@ -70,7 +72,7 @@ h2. Caveats
 
 It is possible to delete an object and then to try to use its attributes to access another object that perhaps must be also deleted (like the option :dependent=>:destroy in Rails associations).
 
-SlimScrooge particularly checks for columns used by :dependent=>:destroy, but if you are doing something similar manually in your code then you may run into problems.  Your attempt to access the key of the dependent object could cause a reload if the column is not already noted by SlimScrooge, and the reload will fail if you have already destroyed the parent object.
+This situation is likely to be found rarely because SlimScrooge particularly checks for columns used by :dependent=>:destroy, but if you are doing something similar manually in your code then you may run into problems.  Your attempt to access the key of the dependent object could cause a reload if the column is not already noted by SlimScrooge, and the reload will fail if you have already destroyed the parent object.
 
 h2. Tests
 
