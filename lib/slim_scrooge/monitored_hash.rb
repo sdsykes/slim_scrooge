@@ -68,6 +68,12 @@ module SlimScrooge
       @monitored_columns.merge(self)
     end
     
+    def freeze
+      @result_set.reload! if @result_set
+      @monitored_columns.freeze
+      super
+    end
+    
     # Marshal
     # Dump a real hash - can't dump a monitored hash due to default proc
     #
