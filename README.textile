@@ -30,7 +30,9 @@ Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.  (Ruby 1.9 to be tested)
   sudo gem install slim_scrooge
 </pre>
 
-Then add this to your Rails::Initializer section in environment.rb:
+If the C extension does not build (perhaps you are on windows and do not have a C compiler), then do not worry - SlimScrooge has a second way of generating callsite information.  Ignore the error and carry on with the next step.
+
+Next add this to your Rails::Initializer section in environment.rb:
 
 <pre>
   config.gem 'slim_scrooge'
@@ -70,9 +72,19 @@ In fact for efficiency, column accesses are only recorded when they are for newl
 
 h2. Caveats
 
-It is possible to delete an object and then to try to use its attributes to access another object that perhaps must be also deleted (like the option :dependent=>:destroy in Rails associations).
+* It is possible to delete an object and then to try to use its attributes to access another object that perhaps must be also deleted (like the option :dependent=>:destroy in Rails associations).
 
 This situation is likely to be found rarely because SlimScrooge particularly checks for columns used by :dependent=>:destroy, but if you are doing something similar manually in your code then you may run into problems.  Your attempt to access the key of the dependent object could cause a reload if the column is not already noted by SlimScrooge, and the reload will fail if you have already destroyed the parent object.
+
+* Some users have complained that running their test suite is slower when SlimScrooge is enabled.  This is expected - it's doing a little more work for each query, and most queries in tests are only executed once.
+
+If it proves to be a problem, you can try this in environment.rb:
+
+<pre>
+  config.gem 'slim_scrooge' unless Rails.env.test?
+</pre>
+
+I do recommend you test with SlimScrooge enabled at some point though, to make sure that everything is working as expected.
 
 h2. Tests
 
