@@ -12,7 +12,7 @@ module SlimScrooge
     module ClassMethods
       def find_by_sql_with_slim_scrooge(sql)
         return find_by_sql_without_slim_scrooge(sql) if sql.is_a?(Array) # don't mess with user's custom query
-        callsite_key = SlimScrooge::Callsites.callsite_key(callsite_hash, sql)
+        callsite_key = SlimScrooge::Callsites.callsite_key(sql)
         if SlimScrooge::Callsites.has_key?(callsite_key)
           find_with_callsite_key(sql, callsite_key)
         elsif callsite = SlimScrooge::Callsites.create(sql, callsite_key, name)  # new site that is scroogeable

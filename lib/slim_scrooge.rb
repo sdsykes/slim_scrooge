@@ -1,6 +1,6 @@
 # Author: Stephen Sykes
 
-require 'callsite_hash'
+begin; require 'callsite_hash'; rescue LoadError; end
 require 'slim_scrooge/simple_set'
 require 'slim_scrooge/callsites'
 require 'slim_scrooge/callsite'
