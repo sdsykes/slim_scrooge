@@ -9,7 +9,7 @@ module SlimScrooge
     ScroogeRegexJoin = /(?:LEFT|INNER|OUTER|CROSS)*\s*(?:STRAIGHT_JOIN|JOIN)/i
 
     attr_accessor :seen_columns
-    attr_reader :columns_hash, :primary_key, :model_class
+    attr_reader :columns_hash, :primary_key, :model_class_name
 
     class << self
       # Make a callsite if the query is of the right type for us to optimise
@@ -40,19 +40,19 @@ module SlimScrooge
 
     def initialize(model_class)
       @all_columns = SimpleSet.new(model_class.column_names)
-      @model_class = model_class
+      @model_class_name = model_class.to_s
       @quoted_table_name = model_class.quoted_table_name
       @primary_key = model_class.primary_key
       @quoted_primary_key = model_class.connection.quote_column_name(@primary_key)
       @columns_hash = model_class.columns_hash
       @select_regexp = self.class.select_regexp(model_class.table_name)
-      @seen_columns = SimpleSet.new(essential_columns)
+      @seen_columns = SimpleSet.new(essential_columns(model_class))
     end
 
     # List of columns that should always be fetched no matter what
     #
-    def essential_columns
-      @model_class.reflect_on_all_associations.inject([@primary_key]) do |arr, assoc|
+    def essential_columns(model_class)
+      model_class.reflect_on_all_associations.inject([@primary_key]) do |arr, assoc|
         if assoc.options[:dependent] && assoc.macro == :belongs_to
           arr << assoc.association_foreign_key
         end
@@ -81,11 +81,15 @@ module SlimScrooge
       "SELECT #{cols} FROM #{@quoted_table_name} WHERE #{@quoted_primary_key} IN (#{sql_keys})"
     end
 
+    def connection
+      @model_class_name.constantize.connection
+    end
+
     # Change a set of columns into a correctly quoted comma separated list
     #
     def scrooge_select_sql(set)
       set.collect do |name|
-        "#{@quoted_table_name}.#{@model_class.connection.quote_column_name(name)}"
+        "#{@quoted_table_name}.#{connection.quote_column_name(name)}"
       end.join(ScroogeComma)
     end
   end
