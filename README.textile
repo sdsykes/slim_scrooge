@@ -20,7 +20,7 @@ In future releases I expect further gains.
 
 h2. Installation
 
-Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.  (Ruby 1.9 to be tested)
+Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.
 
 <pre>
   # if you haven't already, add gemcutter to your gem sources
@@ -30,7 +30,7 @@ Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.  (Ruby 1.9 to be tested)
   sudo gem install slim_scrooge
 </pre>
 
-If the C extension does not build (perhaps you are on windows and do not have a C compiler), then do not worry - SlimScrooge has a second way of generating callsite information.  Ignore the error and carry on with the next step.
+Note that the C extension will only build in MRI Ruby 1.8 on non-windows at present, but do not worry, for other platforms the backup callsite mechanism is used.
 
 Next add this to your Rails::Initializer section in environment.rb:
 

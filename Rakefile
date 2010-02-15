@@ -20,7 +20,7 @@ begin
     s.description = "Slim scrooge boosts speed in Rails ActiveRecord Models by only querying the database for what is needed."
     s.authors = ["Stephen Sykes"]
     s.files = FileList["[A-Z]*", "{ext,lib,test}/**/*"]
-    s.extensions = "ext/extconf.rb"
+    s.extensions = "ext/Rakefile"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

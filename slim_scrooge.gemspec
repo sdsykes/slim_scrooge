@@ -5,14 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{slim_scrooge}
-  s.version = "1.0.4"
+  s.version = "1.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Stephen Sykes"]
-  s.date = %q{2009-12-26}
+  s.date = %q{2010-02-15}
   s.description = %q{Slim scrooge boosts speed in Rails ActiveRecord Models by only querying the database for what is needed.}
   s.email = %q{sdsykes@gmail.com}
-  s.extensions = ["ext/extconf.rb"]
+  s.extensions = ["ext/Rakefile"]
   s.extra_rdoc_files = [
     "README.textile"
   ]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     "README.textile",
      "Rakefile",
      "VERSION.yml",
+     "ext/Rakefile",
      "ext/callsite_hash.c",
      "ext/extconf.rb",
      "lib/slim_scrooge.rb",
