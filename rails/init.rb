@@ -1,5 +1,5 @@
-unless File.exists?(File.join(File.dirname(__FILE__), "ext", "Makefile"))
-  Dir.chdir(File.join(File.dirname(__FILE__), "ext"))
+unless File.exists?(File.join(File.dirname(__FILE__), "../", "ext", "Makefile"))
+  Dir.chdir(File.join(File.dirname(__FILE__), "../", "ext"))
   `rake`
 end
 
