@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
     "README.textile",
      "Rakefile",
      "VERSION.yml",
-     "ext/Makefile",
      "ext/Rakefile",
      "ext/callsite_hash.c",
      "ext/extconf.rb",
