@@ -25,9 +25,6 @@ Requirements: Rails 2.2 or above, Ruby 1.8.6 or above.
 h3. Gem
 
 <pre>
-  # if you haven't already, add gemcutter to your gem sources
-  sudo gem install gemcutter
-  gem tumble
   # install slim_scrooge
   sudo gem install slim_scrooge
 </pre>
