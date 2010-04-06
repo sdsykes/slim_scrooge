@@ -31,10 +31,16 @@ h3. Gem
 
 Note that the C extension will only build in MRI Ruby 1.8 on non-windows at present, but do not worry, for other platforms the backup callsite mechanism is used.
 
-Next add this to your Rails::Initializer section in environment.rb:
+For Rails 2, add this to your Rails::Initializer section in environment.rb:
 
 <pre>
   config.gem 'slim_scrooge'
+</pre>
+
+For Rails 3, add this to your Gemfile:
+
+<pre>
+gem 'slim_scrooge'
 </pre>
 
 h3. Plugin
