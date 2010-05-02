@@ -34,7 +34,7 @@ module SlimScrooge
       # the list of columns we actually need
       #
       def select_regexp(table_name)
-        %r{SELECT +(?:`?#{table_name}`?.)?\* +FROM}
+        %r{SELECT +(?:[`"]?#{table_name}[`"]?.)?\* +FROM}
       end
     end
 
