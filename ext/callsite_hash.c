@@ -6,7 +6,6 @@
 
 static int strhash(register const char *string) {
   register int c;
-
   register int val = 0;
 
   while ((c = *string++) != '\0') {
@@ -16,35 +15,26 @@ static int strhash(register const char *string) {
   return val + (val>>5);
 }
 
-static VALUE rb_f_callsite( VALUE obj ) {
+static VALUE rb_f_callsite(VALUE obj) {
   struct FRAME *frame = ruby_frame;
   NODE *n;
   int csite = 0;
 
-  if (frame->last_func == ID_ALLOCATOR) {
-    frame = frame->prev;
-  }
+  if (frame->last_func == ID_ALLOCATOR) frame = frame->prev;
+
   ruby_set_current_source();
-  if (frame->last_func) {
-    csite += strhash(ruby_sourcefile) + ruby_sourceline + frame->last_func; 
-  }
-  else if (ruby_sourceline == 0) {
-    csite += strhash(ruby_sourcefile);
-  }
-  else {
-    csite += strhash(ruby_sourcefile) + ruby_sourceline; 
-  }
+  if (ruby_sourcefile) csite += strhash(ruby_sourcefile);
+  csite += frame->last_func + ruby_sourceline; 
 
   for (; frame && (n = frame->node); frame = frame->prev) {
     if (frame->prev && frame->prev->last_func) {
       if (frame->prev->node == n) {
         if (frame->prev->last_func == frame->last_func) continue;
       }
-      csite += strhash(n->nd_file) + nd_line(n) + frame->prev->last_func;
+      csite += frame->prev->last_func;
     }
-    else {
-      csite += strhash(n->nd_file) + nd_line(n);
-    }
+    if (n->nd_file) csite += strhash(n->nd_file);
+    csite += nd_line(n);
   }
 
   return INT2FIX(csite);
