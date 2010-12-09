@@ -29,7 +29,7 @@ module SlimScrooge
     #
     def new_column_access(name)
       if @callsite.columns_hash.has_key?(name)
-        @result_set.reload! if @result_set && name != @callsite.primary_key
+        @result_set.reload! unless @result_set.nil? && name == @callsite.primary_key
         Callsites.add_seen_column(@callsite, name)
       end
       @monitored_columns[name]
@@ -40,7 +40,7 @@ module SlimScrooge
     def []=(name, value)
       if has_key?(name)
         return super
-      elsif @result_set && @callsite.columns_hash.has_key?(name)
+      elsif !@result_set.nil? && @callsite.columns_hash.has_key?(name)
         @result_set.reload!
         Callsites.add_seen_column(@callsite, name)
       end
@@ -50,13 +50,13 @@ module SlimScrooge
     # Returns the column names
     #
     def keys
-      @result_set ? @callsite.columns_hash.keys : super | @monitored_columns.keys
+      !@result_set.nil? ? @callsite.columns_hash.keys : super | @monitored_columns.keys
     end
     
     # Check for a column name
     #
     def has_key?(name)
-      @result_set ? @callsite.columns_hash.has_key?(name) : super || @monitored_columns.has_key?(name)
+      !@result_set.nil? ? @callsite.columns_hash.has_key?(name) : super || @monitored_columns.has_key?(name)
     end
     
     alias_method :include?, :has_key?
@@ -64,12 +64,12 @@ module SlimScrooge
     # Called by Hash#update when reload is called on an ActiveRecord object
     #
     def to_hash
-      @result_set.reload! if @result_set
+      @result_set.reload! unless @result_set.nil?
       @monitored_columns.merge(self)
     end
     
     def freeze
-      @result_set.reload! if @result_set
+      @result_set.reload! unless @result_set.nil?
       @monitored_columns.freeze
       super
     end
