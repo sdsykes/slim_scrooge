@@ -87,17 +87,19 @@ module SlimScrooge
   end
 end
 
-# We need to change the update method of Hash so that it *always* calls
-# to_hash.  This is because it normally checks if other_hash is a kind of
-# Hash, and doesn't bother calling to_hash if so.  But we need it to call
-# to_hash, because otherwise update will not get the complete columns
-# from a MonitoredHash
+# We need to change the update method of Hash so that it *always*
+# calls to_hash on MonitoredHash instances.  This is because it
+# normally checks if other_hash is a kind of Hash, and doesn't bother
+# calling to_hash if so.  But we need it to call to_hash, because
+# otherwise update will not get the complete columns from a
+# MonitoredHash
 #
 # This is not harmful - to_hash in a regular Hash just returns self.
 #
 class Hash
   alias_method :c_update, :update
   def update(other_hash, &block)
-    c_update(other_hash.to_hash, &block)
+    c_update(other_hash.is_a?(::SlimScrooge::MonitoredHash) ? other_hash.to_hash : other_hash,
+             &block)
   end
 end
