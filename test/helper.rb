@@ -79,10 +79,16 @@ module SlimScrooge
       end
  
       def find_active_record_test_suite
-        ts = ($:).grep(/activerecord/).last.split('/')
-        ts.pop
-        ts << 'test'
-        ts.join('/')
+        if ActiveRecord::VERSION::MAJOR >= 3
+          rails_checkout = "/Users/sds/Rails/rails/activerecord"
+          Dir.chdir rails_checkout
+          rails_checkout + "/test"
+        else
+          ts = ($:).grep(/activerecord/).last.split('/')
+          ts.pop
+          ts << 'test'
+          ts.join('/')
+        end
       end
     end
 
