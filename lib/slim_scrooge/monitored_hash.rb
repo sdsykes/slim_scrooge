@@ -29,7 +29,7 @@ module SlimScrooge
     #
     def new_column_access(name)
       if @callsite.columns_hash.has_key?(name)
-        @result_set.reload! unless @result_set.nil? && name == @callsite.primary_key
+        @result_set.reload! if !@result_set.nil? && name != @callsite.primary_key
         Callsites.add_seen_column(@callsite, name)
       end
       @monitored_columns[name]
