@@ -113,3 +113,4 @@ h2. References
 h2. Authors
 * Stephen Sykes (sdsykes)
 * Special thanks to Lourens Naudé (methodmissing) for the original idea, and the C implementation of callsite_hash as well as some other bits of code that I borrowed from the original project.
+* Thanks to Steve Purcell for fixes and help
