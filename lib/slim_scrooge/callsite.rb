@@ -25,6 +25,8 @@ module SlimScrooge
       # Check if query can be optimised
       #
       def use_scrooge?(model_class, original_sql)
+        original_sql = original_sql.to_sql if original_sql.respond_to?(:to_sql)
+
         original_sql =~ select_regexp(model_class.table_name) && 
         model_class.columns_hash.has_key?(model_class.primary_key) && 
         original_sql !~ ScroogeRegexJoin
@@ -63,7 +65,19 @@ module SlimScrooge
     # Returns suitable sql given a list of columns and the original query
     #
     def scrooged_sql(seen_columns, sql)
-      sql.gsub(@select_regexp, "SELECT #{scrooge_select_sql(seen_columns)} FROM")
+      if sql.respond_to?(:project)
+        # modify the query - this is a hack that needs to be fixed
+        projections = sql.instance_variable_get(:@ctx).projections
+        select_cols = seen_columns.collect do |name|
+          arel_attr = projections[0].dup
+          arel_attr.name = name
+          arel_attr
+        end
+        projections.replace(select_cols)
+        sql
+      else
+        sql.gsub(@select_regexp, "SELECT #{scrooge_select_sql(seen_columns)} FROM")
+      end
     end
     
     # List if columns what were not fetched
@@ -76,7 +90,7 @@ module SlimScrooge
     # in the result set, specified by primary_keys
     #
     def reload_sql(primary_keys, fetched_columns)
-      sql_keys = primary_keys.collect{|pk| "'#{pk}'"}.join(ScroogeComma)
+      sql_keys = primary_keys.collect{|pk| "#{connection.quote_column_name(pk)}"}.join(ScroogeComma)
       cols = scrooge_select_sql(missing_columns(fetched_columns))
       "SELECT #{cols} FROM #{@quoted_table_name} WHERE #{@quoted_primary_key} IN (#{sql_keys})"
     end
