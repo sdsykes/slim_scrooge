@@ -56,7 +56,7 @@ module SlimScrooge
     def essential_columns(model_class)
       model_class.reflect_on_all_associations.inject([@primary_key]) do |arr, assoc|
         if assoc.options[:dependent] && assoc.macro == :belongs_to
-          arr << assoc.primary_key_name
+          arr << assoc.respond_to?(:foreign_key) ? assoc.foreign_key : assoc.primary_key_name
         end
         arr
       end
