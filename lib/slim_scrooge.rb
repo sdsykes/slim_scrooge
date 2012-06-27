@@ -1,8 +1,9 @@
 # Author: Stephen Sykes
 begin
   unless File.exists?(File.join(File.dirname(__FILE__), "../", "ext", "Makefile"))
-    Dir.chdir(File.join(File.dirname(__FILE__), "../", "ext"))
-    `rake`
+    Dir.chdir(File.join(File.dirname(__FILE__), "../", "ext")) do
+      `rake`
+    end
   end
 rescue Exception
 end
