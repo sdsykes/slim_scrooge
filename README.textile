@@ -8,6 +8,10 @@ SlimScrooge implements inline query optimisation, automatically restricting the 
 
 SlimScrooge is similar to (and is partly derived from) "Scrooge":http://github.com/methodmissing/scrooge but has many fewer lines of code and is faster.
 
+h2. Maintenance status
+
+I (@sdsykes) have been accepting patches but not actively maintaining SlimScrooge. A new maintainer would be welcome.
+
 h2. Benchmark
 
 SlimScrooge performs best when the database is not on the same machine as your rails app.  In this case the overhead of fetching unnecessary data from the database can become more important.
