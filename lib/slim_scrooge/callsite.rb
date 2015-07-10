@@ -90,7 +90,7 @@ module SlimScrooge
     # in the result set, specified by primary_keys
     #
     def reload_sql(primary_keys, fetched_columns)
-      sql_keys = primary_keys.collect{|pk| "#{connection.quote_column_name(pk)}"}.join(ScroogeComma)
+      sql_keys = primary_keys.collect{|pk| "#{connection.quote(pk, @columns_hash[@primary_key])}"}.join(ScroogeComma)
       cols = scrooge_select_sql(missing_columns(fetched_columns))
       "SELECT #{cols} FROM #{@quoted_table_name} WHERE #{@quoted_primary_key} IN (#{sql_keys})"
     end
